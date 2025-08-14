@@ -1,0 +1,14 @@
+[Unit]
+Description=Dashcam recorder script
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=mikem
+ExecStart=/home/mikem/projects/dashcam/run.sh
+
+[Install]
+WantedBy=multi-user.target
