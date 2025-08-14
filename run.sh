@@ -10,10 +10,10 @@ mkdir _outputs
 # -y auto accepts overwriting the file
 # Im not sure what framerate & video size to use yet
 # Not sure what the 1.25x thingy means in the output
-# ffmpeg -f v4l2 -framerate 15 -video_size 640x480 -i /dev/video0 -c:v h264_v4l2m2m -b:v 2M -c:a copy -vf format=yuv420p $SCRIPT_DIR/_outputs/output.mkv -y
-ffmpeg -hide_banner \
-  -f v4l2 -input_format yuyv422 -framerate 15 -video_size 640x480 -i /dev/video0 \
-  -vf format=nv12 \
-  -c:v h264_v4l2m2m -b:v 3M -pix_fmt yuv420p \
-  _outputs/output.mkv -y
+# ffmpeg -f v4l2 -framerate 15 -video_size 640x480 -i /dev/video0 -b:v 1M _outputs/output.mkv -y
+
+# this seems to work the best for now, minimizes cpu usage cuz were not doing any re-encoding
+ffmpeg -f v4l2 -input_format mjpeg -video_size 1280x720 -framerate 30 \
+  -i /dev/video0 \
+  -c:v copy -f matroska _outputs/output.mkv -y
 
