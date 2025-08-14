@@ -2,6 +2,8 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+git pull
+
 mkdir $SCRIPT_DIR/_outputs
 
 # -y auto accepts overwriting the file
