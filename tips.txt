@@ -1,0 +1,1 @@
+Use ffprobe <filename> to get info about an mp4 file
