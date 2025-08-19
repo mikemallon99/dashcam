@@ -8,7 +8,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=mikem
-ExecStart=/home/mikem/projects/dashcam/run.sh
+ExecStart=/home/mikem/projects/dashcam/start.sh
 
 [Install]
 WantedBy=multi-user.target
