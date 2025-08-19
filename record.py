@@ -1,5 +1,8 @@
 import subprocess
 import datetime
+import os
+
+MAX_VIDEOS = 4
 
 # Send to laptops ip, get ip with "ip a"
 laptop_ip = "192.168.0.128" # Sweetgreen WiFi ip
@@ -7,6 +10,22 @@ laptop_ip = "192.168.0.128" # Sweetgreen WiFi ip
 output_dir = "/mnt/usbdrive/dashcam_recs"
 
 # Check output directory to see if were overflowing, then delete old files
+video_names = [filename.split(".")[0] for filename in os.listdir(output_dir)]
+if len(video_names) >= MAX_VIDEOS:
+    print(f"Number of vids in {output_dir} exceeds max of {MAX_VIDEOS}")
+    oldest_video_name = video_names[0]
+    oldest_video_ts = datetime.datetime.strptime(video_names[0], "%Y%m%d-%H%M%S")
+    for cur_video_name in video_names:
+        cur_video_ts = datetime.datetime.strptime(cur_video_name, "%Y%m%d-%H%M%S")
+        if cur_video_ts < oldest_video_ts:
+            oldest_video_name = cur_video_name
+            oldest_video_ts = cur_video_ts
+
+    # Remove oldest file
+    oldest_filepath = os.path.join(output_dir, f"{oldest_video_name}.mp4")
+    os.remove(oldest_filepath)
+    print(f"Removed video at path: {oldest_filepath}")
+
 
 RES="1280x720"
 FPS=30
