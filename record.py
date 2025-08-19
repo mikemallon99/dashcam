@@ -2,7 +2,7 @@ import subprocess
 import datetime
 import os
 
-MAX_VIDEOS = 4
+MAX_VIDEOS = 16
 
 # Send to laptops ip, get ip with "ip a"
 laptop_ip = "192.168.0.128" # Sweetgreen WiFi ip
@@ -45,7 +45,7 @@ cmd = [
     "-b:v", "2000k", 
     "-g", "60", 
     "-pix_fmt", "yuv420p",
-    "-f", "tee", f"[f=mpegts]udp://{laptop_ip}:1234|[f=mp4:movflags=+faststart]{output_dir}/{ts}.mp4",
+    "-f", "tee", f"[f=mpegts]udp://{laptop_ip}:1234|[f=mpegts]{output_dir}/{ts}.ts",
 ]
 
 subprocess.run(cmd, check=True)
